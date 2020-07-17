@@ -3,6 +3,7 @@
         <TargetFramework>netcoreapp3.1</TargetFramework>
         <Nullable>enable</Nullable>
         <NullableReferenceTypes>true</NullableReferenceTypes>
+        <NeutralLanguage>pt-BR</NeutralLanguage>
     </PropertyGroup>
 
     <ItemGroup>
