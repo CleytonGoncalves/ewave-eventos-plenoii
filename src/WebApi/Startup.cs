@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,11 +30,17 @@ namespace WebApi
             IApiVersionDescriptionProvider apiVersionProvider)
         {
             if (env.IsDevelopment())
-            {
                 app.UseDeveloperExceptionPage();
-            }
+
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                // Exibe o IP real do request se houver um reverse-proxy
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            });
 
             app.UseHttpsRedirection();
+
+            app.UseSerilog();
 
             app.UseRouting();
 
