@@ -1,0 +1,38 @@
+﻿version: '3.4'
+
+networks:
+  webapi-dev:
+    driver: bridge
+
+services:
+  webapi:
+    image: webapi:latest
+    depends_on:
+      - "postgres_image"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:80"
+    environment:
+      ConnectionStrings__DefaultConnection: "host=postgres_image;port=5432;database=Palestra;username=palestrauser;password=palestrasenha"
+    networks:
+      - webapi-dev
+
+  postgres_image:
+    image: postgres:latest
+    ports:
+      - "5432"
+    restart: always
+    volumes:
+      - db_volume:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: "palestrauser"
+      POSTGRES_PASSWORD: "palestrasenha"
+      POSTGRES_DB: "Palestra"
+    networks:
+      - webapi-dev
+volumes:
+  db_volume:
+
+
