@@ -1,3 +1,4 @@
+using Hellang.Middleware.ProblemDetails;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -24,6 +25,7 @@ namespace WebApi
             services.AddControllers();
 
             services.AddConfiguredLogging();
+            services.AddConfiguredProblemDetails();
             services.AddConfiguredApiVersioning();
             services.AddConfiguredSwagger();
         }
@@ -43,6 +45,8 @@ namespace WebApi
             app.UseHttpsRedirection();
 
             app.UseSerilogRequestLogging();
+
+            app.UseProblemDetails();
 
             app.UseRouting();
 
