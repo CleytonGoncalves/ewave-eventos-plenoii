@@ -4,7 +4,7 @@ namespace WebApi.Configurations
 {
     public static class ApiVersioningExtensions
     {
-        public static IServiceCollection AddApiVersion(this IServiceCollection services)
+        public static IServiceCollection AddConfiguredApiVersioning(this IServiceCollection services)
         {
             services.AddApiVersioning(options => options.ReportApiVersions = true);
             services.AddVersionedApiExplorer(options =>

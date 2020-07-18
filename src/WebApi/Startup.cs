@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Serilog;
 using WebApi.Configurations;
 
 namespace WebApi
@@ -22,8 +23,9 @@ namespace WebApi
         {
             services.AddControllers();
 
-            services.AddApiVersion();
-            services.AddSwagger();
+            services.AddConfiguredLogging();
+            services.AddConfiguredApiVersioning();
+            services.AddConfiguredSwagger();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
@@ -40,7 +42,7 @@ namespace WebApi
 
             app.UseHttpsRedirection();
 
-            app.UseSerilog();
+            app.UseSerilogRequestLogging();
 
             app.UseRouting();
 
