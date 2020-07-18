@@ -4,6 +4,7 @@
         <Nullable>enable</Nullable>
         <NullableReferenceTypes>true</NullableReferenceTypes>
         <NeutralLanguage>pt-BR</NeutralLanguage>
+        <NoWarn>CA1062</NoWarn>
     </PropertyGroup>
 
     <ItemGroup>
