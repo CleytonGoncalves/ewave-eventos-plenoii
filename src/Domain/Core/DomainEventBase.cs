@@ -2,11 +2,11 @@
 
 namespace Domain.Core
 {
-    public class DomainEventBase : IDomainEvent
+    public abstract class DomainEventBase : IDomainEvent
     {
         public DateTimeOffset OccurredOn { get; }
 
-        public DomainEventBase()
+        protected DomainEventBase()
         {
             OccurredOn = DateTimeOffset.Now;
         }
