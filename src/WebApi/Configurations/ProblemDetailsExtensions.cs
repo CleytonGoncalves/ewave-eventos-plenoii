@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Net.Http;
+using Domain.Core;
 using Hellang.Middleware.ProblemDetails;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -31,6 +32,10 @@ namespace WebApi.Configurations
             /// <summary> Determina o Http Status Code que exceptions específicas devem gerar </summary>
             private static void MapExceptions(ProblemDetailsOptions options)
             {
+                /* Exceções customizadas */
+
+                options.MapToStatusCode<BusinessRuleValidationException>(Status400BadRequest);
+
                 /* Exceções genéricas */
 
                 options.MapToStatusCode<DBConcurrencyException>(Status409Conflict);
