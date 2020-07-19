@@ -61,6 +61,15 @@ namespace Domain {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Email inválido: {0}.
+        /// </summary>
+        internal static string InvalidEmailFormat {
+            get {
+                return ResourceManager.GetString("InvalidEmailFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Palestrante precisa ter ao menos {0} caracteres..
         /// </summary>
         internal static string PalestranteMinimumLengthError {

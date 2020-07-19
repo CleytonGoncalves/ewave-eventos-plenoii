@@ -18,4 +18,7 @@
   <data name="PalestranteMinimumLengthError" xml:space="preserve">
     <value>Palestrante precisa ter ao menos {0} caracteres.</value>
   </data>
+  <data name="InvalidEmailFormat" xml:space="preserve">
+    <value>Email inválido: {0}</value>
+  </data>
 </root>
