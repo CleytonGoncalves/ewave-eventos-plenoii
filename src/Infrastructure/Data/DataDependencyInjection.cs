@@ -30,6 +30,12 @@ namespace Infrastructure.Data
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
+            services.Scan(scan => scan.FromCallingAssembly()
+                .AddClasses(c => c.Where(type => type.Name.EndsWith("Repository")))
+                .AsImplementedInterfaces()
+                .WithScopedLifetime()
+            );
+
             return services;
         }
 
