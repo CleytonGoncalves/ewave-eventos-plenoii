@@ -2,24 +2,28 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Core;
+using Infrastructure.Processing;
 
 namespace Infrastructure.Data
 {
     public class UnitOfWork : IUnitOfWork, IDisposable
     {
         private readonly PalestraContext _context;
+        private readonly IDomainEventDispatcher _eventDispatcher;
+
         private bool _disposed;
 
-        public UnitOfWork(PalestraContext context)
+        public UnitOfWork(PalestraContext context, IDomainEventDispatcher eventDispatcher)
         {
             _context = context;
+            _eventDispatcher = eventDispatcher;
         }
 
         public async Task<int> Commit(CancellationToken cToken = default)
         {
-            int affectedRows = await _context
-                .SaveChangesAsync(cToken)
-                .ConfigureAwait(false);
+            await _eventDispatcher.DispatchEvents();
+
+            int affectedRows = _context.SaveChanges();
 
             return affectedRows;
         }

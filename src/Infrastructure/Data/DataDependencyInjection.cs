@@ -1,4 +1,5 @@
 ﻿using System;
+using Application.Core;
 using EntityFramework.Exceptions.SqlServer;
 using Infrastructure.Data.Converters;
 using Microsoft.EntityFrameworkCore;
@@ -8,12 +9,12 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Infrastructure.Data
 {
-    public static class DataDependencyInjection
+    internal static class DataDependencyInjection
     {
         private const string CONNECTION_STRING_NAME = "DefaultConnection";
         private const string HEROKU_DB_ENV = "DATABASE_URL";
 
-        public static IServiceCollection AddPersistence(this IServiceCollection services,
+        internal static IServiceCollection AddPersistence(this IServiceCollection services,
             IConfiguration cfg)
         {
             services.AddDbContextPool<PalestraContext>(options =>
@@ -27,11 +28,13 @@ namespace Infrastructure.Data
                     .EnableSensitiveDataLogging(); // Deve ser desabilitado em produção
             });
 
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+
             return services;
         }
 
         /// <summary> Aplica automaticamente as migrations </summary>
-        public static void UsePersistence(IServiceProvider serviceProvider)
+        internal static void InitializePersistence(this IServiceProvider serviceProvider)
         {
             using (var scope = serviceProvider.GetService<IServiceScopeFactory>().CreateScope())
             {

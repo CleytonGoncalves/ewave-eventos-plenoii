@@ -1,6 +1,6 @@
 using Application.Core.Modules;
 using Hellang.Middleware.ProblemDetails;
-using Infrastructure.Data;
+using Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -31,8 +31,7 @@ namespace WebApi
             services.AddConfiguredApiVersioning();
             services.AddConfiguredSwagger();
 
-            services.AddPersistence(Configuration);
-
+            services.AddInfrastructureDependencyInjection(Configuration);
             services.AddApplicationDependencyInjection();
         }
 
@@ -62,7 +61,7 @@ namespace WebApi
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 
-            DataDependencyInjection.UsePersistence(app.ApplicationServices);
+            InfrastructureDependencyInjection.UseInfra(app.ApplicationServices);
         }
     }
 }
