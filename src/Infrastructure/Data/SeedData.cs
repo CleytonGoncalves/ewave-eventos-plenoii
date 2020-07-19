@@ -1,7 +1,8 @@
-﻿using System;
+using System;
 using Domain.Eventos;
 using Domain.Funcionarios;
 using Domain.Palestras;
+using Domain.SharedKernel;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Data
@@ -29,7 +30,7 @@ namespace Infrastructure.Data
             {
                 Id = new FuncionarioId(new Guid("98EF415F-21F9-47A6-9100-8ECC75886422")),
                 Nome = "Chefe do João",
-                Email = "boss@invalid.com",
+                Email = new Email("boss@invalid.com"),
                 RequerConfirmacaoSuperior = false,
             });
 
@@ -37,7 +38,7 @@ namespace Infrastructure.Data
             {
                 Id = new FuncionarioId(new Guid("35999B04-656C-417B-A235-0B5C302E78D5")),
                 Nome = "João",
-                Email = "peao@invalid.com",
+                Email = new Email("peao@invalid.com"),
                 RequerConfirmacaoSuperior = true,
                 SuperiorId = new FuncionarioId(new Guid("98EF415F-21F9-47A6-9100-8ECC75886422")),
             });

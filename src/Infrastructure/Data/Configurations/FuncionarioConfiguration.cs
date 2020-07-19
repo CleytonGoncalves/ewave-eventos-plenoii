@@ -1,5 +1,6 @@
 ﻿using Domain.Funcionarios;
 using Domain.Funcionarios.Participacoes;
+using Infrastructure.Data.Converters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -16,6 +17,9 @@ namespace Infrastructure.Data.Configurations
                 .HasColumnName(nameof(Funcionario) + "Id");
 
             builder.HasOne(x => x.Superior);
+
+            builder.Property(x => x.Email)
+                .HasConversion(new EmailToStringConverter());
 
             builder.OwnsMany(x => x.Participacoes, ParticipacaoConfiguration);
         }

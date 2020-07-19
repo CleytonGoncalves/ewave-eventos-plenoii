@@ -2,6 +2,7 @@
 using System.Linq;
 using Domain.Core;
 using Domain.Funcionarios.Participacoes;
+using Domain.SharedKernel;
 
 namespace Domain.Funcionarios
 {
@@ -10,7 +11,7 @@ namespace Domain.Funcionarios
         public FuncionarioId Id { get; }
 
         public string Nome { get; set; }
-        public string Email { get; set; }
+        public Email Email { get; set; }
 
         public Funcionario? Superior { get; set; }
         public bool RequerConfirmacaoSuperior { get; set; }
@@ -18,7 +19,7 @@ namespace Domain.Funcionarios
         private readonly ICollection<Participacao> _participacoes = new List<Participacao>();
         public IReadOnlyCollection<Participacao> Participacoes => _participacoes.ToList();
 
-        public Funcionario(string nome, string email)
+        public Funcionario(string nome, Email email)
         {
             Id = new FuncionarioId();
             Nome = nome;
