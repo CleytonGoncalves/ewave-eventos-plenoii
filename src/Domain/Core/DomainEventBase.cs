@@ -10,5 +10,7 @@ namespace Domain.Core
         {
             OccurredOn = DateTimeOffset.Now;
         }
+
+        public override string ToString() => $"{GetType().Name}: {nameof(OccurredOn)}: {OccurredOn}";
     }
 }

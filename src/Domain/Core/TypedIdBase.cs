@@ -32,5 +32,7 @@ namespace Domain.Core
             obj1?.Equals(obj2) ?? Equals(obj2, null);
 
         public static bool operator !=(TypedIdBase x, TypedIdBase y) => ! (x == y);
+
+        public override string ToString() => $"{GetType().Name}: {Value}";
     }
 }

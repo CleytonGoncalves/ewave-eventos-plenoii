@@ -17,5 +17,7 @@ namespace Domain.Core
             if (rule.IsBroken())
                 throw new BusinessRuleValidationException(rule);
         }
+
+        public override string ToString() => $"{GetType().Name} - Events: {string.Join("; ", _domainEvents)}";
     }
 }
