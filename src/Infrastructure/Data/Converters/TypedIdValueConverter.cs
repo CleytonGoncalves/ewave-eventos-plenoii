@@ -2,7 +2,7 @@
 using Domain.Core;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Infrastructure.Data
+namespace Infrastructure.Data.Converters
 {
     public class TypedIdValueConverter<TTypedIdValue> : ValueConverter<TTypedIdValue, Guid>
         where TTypedIdValue : TypedIdBase

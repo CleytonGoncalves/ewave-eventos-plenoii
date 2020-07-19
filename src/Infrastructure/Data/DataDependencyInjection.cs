@@ -1,5 +1,6 @@
 ﻿using System;
 using EntityFramework.Exceptions.SqlServer;
+using Infrastructure.Data.Converters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microsoft.Extensions.Configuration;

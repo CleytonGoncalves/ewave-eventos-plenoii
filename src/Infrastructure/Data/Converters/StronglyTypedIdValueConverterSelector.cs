@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Domain.Core;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Infrastructure.Data
+namespace Infrastructure.Data.Converters
 {
     public class StronglyTypedIdValueConverterSelector : ValueConverterSelector
     {
