@@ -5,6 +5,7 @@ using Domain.Core;
 using Domain.Funcionarios.Participacoes;
 using Domain.Palestras.Events;
 using Domain.Palestras.Rules;
+using Domain.Palestras.ValueObjects;
 using Domain.SharedKernel;
 
 namespace Domain.Palestras

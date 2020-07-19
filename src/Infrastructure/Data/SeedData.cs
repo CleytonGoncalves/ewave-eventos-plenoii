@@ -2,6 +2,7 @@ using System;
 using Domain.Eventos;
 using Domain.Funcionarios;
 using Domain.Palestras;
+using Domain.Palestras.ValueObjects;
 using Domain.SharedKernel;
 using Microsoft.EntityFrameworkCore;
 

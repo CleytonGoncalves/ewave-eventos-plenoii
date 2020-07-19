@@ -1,5 +1,5 @@
 ﻿using Domain.Core;
-using Domain.Palestras;
+using Domain.Palestras.ValueObjects;
 
 namespace Domain.Funcionarios.Participacoes
 {

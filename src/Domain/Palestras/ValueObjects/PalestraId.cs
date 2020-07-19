@@ -1,7 +1,7 @@
 ﻿using System;
 using Domain.Core;
 
-namespace Domain.Palestras
+namespace Domain.Palestras.ValueObjects
 {
     public class PalestraId : TypedIdBase
     {

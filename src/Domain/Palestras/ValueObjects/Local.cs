@@ -1,4 +1,4 @@
-﻿namespace Domain.Palestras
+﻿namespace Domain.Palestras.ValueObjects
 {
     public enum Local
     {

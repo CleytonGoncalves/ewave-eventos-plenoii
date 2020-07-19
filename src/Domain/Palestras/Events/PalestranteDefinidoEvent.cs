@@ -1,4 +1,5 @@
 ﻿using Domain.Core;
+using Domain.Palestras.ValueObjects;
 using Domain.SharedKernel;
 
 namespace Domain.Palestras.Events
