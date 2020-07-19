@@ -1,3 +1,4 @@
+using Application.Core.Modules;
 using Hellang.Middleware.ProblemDetails;
 using Infrastructure.Data;
 using Microsoft.AspNetCore.Builder;
@@ -31,6 +32,8 @@ namespace WebApi
             services.AddConfiguredSwagger();
 
             services.AddPersistence(Configuration);
+
+            services.AddApplicationDependencyInjection();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env,

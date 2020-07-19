@@ -27,4 +27,11 @@
       </Compile>
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="FluentValidation" Version="9.0.1" />
+      <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="9.0.1" />
+      <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.0.1" />
+      <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.6" />
+    </ItemGroup>
+
 </Project>
