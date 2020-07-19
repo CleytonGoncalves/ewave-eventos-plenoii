@@ -1,16 +1,20 @@
 ﻿using Domain.Core;
+using Domain.SharedKernel;
 
 namespace Domain.Palestras.Events
 {
     public class PalestranteDefinidoEvent : DomainEventBase
     {
         public PalestraId PalestraId { get; set; }
-        public string Palestrante { get; set; }
 
-        public PalestranteDefinidoEvent(PalestraId palestraId, string palestrante)
+        public string PalestranteNome { get; set; }
+        public Email PalestranteEmail { get; set; }
+
+        public PalestranteDefinidoEvent(PalestraId palestraId, string palestranteNome, Email palestranteEmail)
         {
             PalestraId = palestraId;
-            Palestrante = palestrante;
+            PalestranteNome = palestranteNome;
+            PalestranteEmail = palestranteEmail;
         }
     }
 }

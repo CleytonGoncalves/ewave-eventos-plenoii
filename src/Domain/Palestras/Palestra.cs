@@ -5,6 +5,7 @@ using Domain.Core;
 using Domain.Funcionarios.Participacoes;
 using Domain.Palestras.Events;
 using Domain.Palestras.Rules;
+using Domain.SharedKernel;
 
 namespace Domain.Palestras
 {
@@ -19,13 +20,16 @@ namespace Domain.Palestras
         public StatusPalestra Status { get; private set; }
         public Local Local { get; private set; }
 
-        public string? Palestrante { get; private set; }
+        public string? PalestranteNome { get; private set; }
+        public Email? PalestranteEmail { get; private set; }
+
+        public Email OrganizadorEmail { get; private set; }
 
         private readonly ICollection<ParticipacaoId> _participacoes = new List<ParticipacaoId>();
         public IReadOnlyCollection<ParticipacaoId> Participacoes => _participacoes.ToList();
 
         public Palestra(string tema, string titulo, DateTimeOffset dataInicial, DateTimeOffset dataFinal,
-            Local local)
+            Local local, Email organizadorEmail)
         {
             Id = new PalestraId();
             Tema = tema;
@@ -33,17 +37,20 @@ namespace Domain.Palestras
             DataInicial = dataInicial;
             DataFinal = dataFinal;
             Local = local;
+            OrganizadorEmail = organizadorEmail;
 
             Status = StatusPalestra.Planejado;
             AddDomainEvent(new PalestraCriadaEvent(Id));
         }
 
-        public void DefinirPalestrante(string palestrante)
+        public void DefinirPalestrante(string nome, Email email)
         {
-            CheckRule(new PalestranteMinimumLengthRule(palestrante));
+            CheckRule(new PalestranteMinimumLengthRule(nome));
 
-            Palestrante = palestrante;
-            AddDomainEvent(new PalestranteDefinidoEvent(Id, Palestrante));
+            PalestranteNome = nome;
+            PalestranteEmail = email;
+
+            AddDomainEvent(new PalestranteDefinidoEvent(Id, PalestranteNome, PalestranteEmail.Value));
         }
 
         public void ConfirmarPresencaPalestrante()

@@ -4,6 +4,7 @@ using AutoFixture;
 using Domain.Palestras;
 using Domain.Palestras.Events;
 using Domain.Palestras.Rules;
+using Domain.SharedKernel;
 using FluentAssertions;
 using UnitTests.Core;
 using Xunit;
@@ -26,14 +27,19 @@ namespace UnitTests.Aggregates
         public void DefinirPalestrante_DeveGerar_PalestranteDefinidoEvent()
         {
             var fixture = new Fixture();
-            var palestrante = fixture.Create<string>();
+            var nome = fixture.Create<string>();
+            var email = fixture.Create<Email>();
             var sut = fixture.Create<Palestra>();
 
-            sut.DefinirPalestrante(palestrante);
+            sut.DefinirPalestrante(nome, email);
 
             sut.GetAllDomainEvents().OfType<PalestranteDefinidoEvent>()
                 .Should().ContainSingle()
-                .Which.Palestrante.Should().Be(palestrante);
+                .And.SatisfyRespectively(x =>
+                {
+                    x.PalestranteNome.Should().Be(nome);
+                    x.PalestranteEmail.Should().Be(email);
+                });
         }
 
         [Fact]
@@ -51,11 +57,12 @@ namespace UnitTests.Aggregates
         public void DefinirPalestranteVazio_DeveGerar_BusinessRuleException()
         {
             var fixture = new Fixture();
-            var sut = fixture.Create<Palestra>();
-            string strMenorQueTamanhoMinimo =
-                Guid.Empty.ToString().Substring(0, PalestranteMinimumLengthRule.MIN_LENGTH - 1);
+            var nomeMenorQuePermitido = Guid.Empty.ToString().Substring(0, PalestranteMinimumLengthRule.MIN_LENGTH - 1);
+            var email = fixture.Create<Email>();
 
-            Action act = () => sut.DefinirPalestrante(strMenorQueTamanhoMinimo);
+            var sut = fixture.Create<Palestra>();
+
+            Action act = () => sut.DefinirPalestrante(nomeMenorQuePermitido, email);
 
             sut.Should().BreakBusinessRule<PalestranteMinimumLengthRule>(act);
         }

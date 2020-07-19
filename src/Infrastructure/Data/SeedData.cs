@@ -22,7 +22,9 @@ namespace Infrastructure.Data
                 DataInicial = DateTimeOffset.Now,
                 DataFinal = DateTimeOffset.Now + TimeSpan.FromHours(1),
                 Local = Local.Bocaiuveira,
-                Palestrante = "Martin Fowler",
+                PalestranteNome = "Martin Fowler",
+                PalestranteEmail = new Email("martin@invalid.com"),
+                OrganizadorEmail = new Email("organizador@invalid.com"),
                 Status = StatusPalestra.Planejado,
             });
 
