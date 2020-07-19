@@ -59,5 +59,14 @@ namespace Domain {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Palestrante precisa ter ao menos {0} caracteres..
+        /// </summary>
+        internal static string PalestranteMinimumLengthError {
+            get {
+                return ResourceManager.GetString("PalestranteMinimumLengthError", resourceCulture);
+            }
+        }
     }
 }
