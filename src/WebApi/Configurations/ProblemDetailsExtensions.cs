@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Net.Http;
+using Application.Core.Validations;
 using Domain.Core;
 using Hellang.Middleware.ProblemDetails;
 using Microsoft.Extensions.DependencyInjection;
@@ -35,6 +36,7 @@ namespace WebApi.Configurations
                 /* Exceções customizadas */
 
                 options.MapToStatusCode<BusinessRuleValidationException>(Status400BadRequest);
+                options.MapToStatusCode<InvalidCommandException>(Status400BadRequest);
 
                 /* Exceções genéricas */
 

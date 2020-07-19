@@ -59,5 +59,14 @@ namespace Application {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Comando inválido. Motivos: .
+        /// </summary>
+        internal static string InvalidCommandError {
+            get {
+                return ResourceManager.GetString("InvalidCommandError", resourceCulture);
+            }
+        }
     }
 }
