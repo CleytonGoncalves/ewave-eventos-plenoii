@@ -1,5 +1,4 @@
 ﻿using Domain.Funcionarios;
-using Domain.Funcionarios.Participacoes;
 using Infrastructure.Data.Converters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -20,20 +19,6 @@ namespace Infrastructure.Data.Configurations
 
             builder.Property(x => x.Email)
                 .HasConversion(new EmailToStringConverter());
-
-            builder.OwnsMany(x => x.Participacoes, ParticipacaoConfiguration);
-        }
-
-        private void ParticipacaoConfiguration(OwnedNavigationBuilder<Funcionario, Participacao> participacaoBuilder)
-        {
-            participacaoBuilder.ToTable(nameof(Participacao));
-
-            participacaoBuilder.HasKey(x => x.Id);
-            participacaoBuilder.Property(x => x.Id)
-                .HasColumnName(nameof(Funcionario) + "Id");
-
-            participacaoBuilder.HasIndex("FuncionarioId", "PalestraId")
-                .IsUnique();
         }
     }
 }

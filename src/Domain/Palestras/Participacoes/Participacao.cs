@@ -1,19 +1,19 @@
 ﻿using Domain.Core;
-using Domain.Palestras.ValueObjects;
+using Domain.Funcionarios;
 
-namespace Domain.Funcionarios.Participacoes
+namespace Domain.Palestras.Participacoes
 {
     public class Participacao : EntityBase
     {
         public ParticipacaoId Id { get; }
 
-        public PalestraId PalestraId { get; private set; }
+        public FuncionarioId FuncionarioId { get; private set; }
         public StatusParticipacao Status { get; private set; }
 
-        public Participacao(PalestraId palestraId, StatusParticipacao status)
+        public Participacao(FuncionarioId funcionarioId, StatusParticipacao status)
         {
             Id = new ParticipacaoId();
-            PalestraId = palestraId;
+            FuncionarioId = funcionarioId;
             Status = status;
         }
     }

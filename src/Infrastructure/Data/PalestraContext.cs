@@ -1,6 +1,5 @@
 ﻿using Domain.Eventos;
 using Domain.Funcionarios;
-using Domain.Funcionarios.Participacoes;
 using Domain.Palestras;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,7 +22,6 @@ namespace Infrastructure.Data
         public DbSet<Evento> Eventos { get; set; }
         public DbSet<Funcionario> Funcionarios { get; set; }
         public DbSet<Palestra> Palestras { get; set; }
-        public DbSet<Participacao> Participacoes { get; set; }
     }
     #pragma warning restore 8618 // Non-nullable member is uninitialized
 }

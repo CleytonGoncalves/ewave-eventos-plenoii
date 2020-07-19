@@ -1,4 +1,4 @@
-﻿namespace Domain.Funcionarios.Participacoes
+﻿namespace Domain.Palestras.Participacoes
 {
     public enum StatusParticipacao
     {

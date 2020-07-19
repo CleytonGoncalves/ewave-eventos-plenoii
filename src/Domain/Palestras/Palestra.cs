@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Domain.Core;
-using Domain.Funcionarios.Participacoes;
 using Domain.Palestras.Events;
+using Domain.Palestras.Participacoes;
 using Domain.Palestras.Rules;
 using Domain.Palestras.ValueObjects;
 using Domain.SharedKernel;
@@ -26,8 +25,7 @@ namespace Domain.Palestras
 
         public Email OrganizadorEmail { get; private set; }
 
-        private readonly ICollection<ParticipacaoId> _participacoes = new List<ParticipacaoId>();
-        public IReadOnlyCollection<ParticipacaoId> Participacoes => _participacoes.ToList();
+        public IReadOnlyCollection<Participacao> Participacoes { get; private set; }
 
         public Palestra(string tema, string titulo, DateTimeOffset dataInicial, DateTimeOffset dataFinal,
             Local local, Email organizadorEmail)
@@ -39,6 +37,7 @@ namespace Domain.Palestras
             DataFinal = dataFinal;
             Local = local;
             OrganizadorEmail = organizadorEmail;
+            Participacoes = new List<Participacao>();
 
             Status = StatusPalestra.Planejado;
             AddDomainEvent(new PalestraCriadaEvent(Id));

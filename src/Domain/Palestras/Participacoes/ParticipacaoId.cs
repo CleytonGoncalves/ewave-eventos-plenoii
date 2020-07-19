@@ -1,7 +1,7 @@
 ﻿using System;
 using Domain.Core;
 
-namespace Domain.Funcionarios.Participacoes
+namespace Domain.Palestras.Participacoes
 {
     public class ParticipacaoId : TypedIdBase
     {

@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Domain.Core;
-using Domain.Funcionarios.Participacoes;
+﻿using Domain.Core;
 using Domain.SharedKernel;
 
 namespace Domain.Funcionarios
@@ -15,9 +12,6 @@ namespace Domain.Funcionarios
 
         public Funcionario? Superior { get; set; }
         public bool RequerConfirmacaoSuperior { get; set; }
-
-        private readonly ICollection<Participacao> _participacoes = new List<Participacao>();
-        public IReadOnlyCollection<Participacao> Participacoes => _participacoes.ToList();
 
         public Funcionario(string nome, Email email)
         {
