@@ -1,5 +1,7 @@
-﻿using System;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Domain.Core;
+using Domain.Funcionarios.Participacoes;
 
 namespace Domain.Funcionarios
 {
@@ -10,8 +12,11 @@ namespace Domain.Funcionarios
         public string Nome { get; set; }
         public string Email { get; set; }
 
-        public FuncionarioId? Superior { get; set; }
+        public Funcionario? Superior { get; set; }
         public bool RequerConfirmacaoSuperior { get; set; }
+
+        private readonly ICollection<Participacao> _participacoes = new List<Participacao>();
+        public IReadOnlyCollection<Participacao> Participacoes => _participacoes.ToList();
 
         public Funcionario(string nome, string email)
         {

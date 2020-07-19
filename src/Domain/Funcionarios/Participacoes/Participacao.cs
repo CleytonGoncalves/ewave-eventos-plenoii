@@ -5,7 +5,7 @@ namespace Domain.Funcionarios.Participacoes
 {
     public class Participacao : EntityBase
     {
-        internal ParticipacaoId Id { get; }
+        public ParticipacaoId Id { get; }
 
         public PalestraId PalestraId { get; private set; }
         public StatusParticipacao Status { get; private set; }
