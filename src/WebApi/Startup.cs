@@ -24,7 +24,8 @@ namespace WebApi
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers()
+                .AddConfiguredJson();
 
             services.AddConfiguredLogging();
             services.AddConfiguredProblemDetails();
