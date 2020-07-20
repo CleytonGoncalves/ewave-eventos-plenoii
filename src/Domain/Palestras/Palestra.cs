@@ -20,24 +20,26 @@ namespace Domain.Palestras
         public StatusPalestra Status { get; private set; }
         public Local Local { get; private set; }
 
+        public Email OrganizadorEmail { get; private set; }
+
         public string? PalestranteNome { get; private set; }
         public Email? PalestranteEmail { get; private set; }
 
-        public Email OrganizadorEmail { get; private set; }
-
         public IReadOnlyCollection<Participacao> Participacoes { get; private set; }
 
-        public Palestra(string tema, string titulo, DateTimeOffset dataInicial, DateTimeOffset dataFinal,
-            Local local, Email organizadorEmail)
+        public Palestra(string tema, string titulo, DateTimeOffset dataInicial, TimeSpan duracao, Local local,
+            Email organizadorEmail, IColisaoLocalPalestraChecker colisaoLocalChecker)
         {
             Id = new PalestraId();
             Tema = tema;
             Titulo = titulo;
             DataInicial = dataInicial;
-            DataFinal = dataFinal;
+            DataFinal = dataInicial + duracao;
             Local = local;
             OrganizadorEmail = organizadorEmail;
             Participacoes = new List<Participacao>();
+
+            CheckRule(new LocalPrecisaEstarDisponivelRule(colisaoLocalChecker, Local, dataInicial, DataFinal));
 
             Status = StatusPalestra.Planejado;
             AddDomainEvent(new PalestraCriadaEvent(Id));

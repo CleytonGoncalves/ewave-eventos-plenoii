@@ -1,7 +1,11 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Domain.Palestras;
 using Domain.Palestras.ValueObjects;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Data.Repositories
 {
@@ -14,11 +18,16 @@ namespace Infrastructure.Data.Repositories
             _context = context;
         }
 
-        public Task<Palestra?> GetBy(PalestraId id)
-        {
-            var palestra = _context.Palestras.FirstOrDefault(p => p.Id == id);
+        public async Task<Palestra?> GetBy(PalestraId id, CancellationToken cancellationToken = default) =>
+            await _context.Palestras.FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
 
-            return Task.FromResult<Palestra?>(palestra);
+        public ICollection<Palestra> FindBy(Local local, DateTimeOffset dataInicial, DateTimeOffset dataFinal)
+        {
+            var palestrasNoLocalDuranteHorario = _context.Palestras
+                .Where(p => p.Local == local && dataInicial <= p.DataFinal && p.DataInicial <= dataFinal)
+                .ToList();
+
+            return palestrasNoLocalDuranteHorario;
         }
 
         public Task Add(Palestra palestra)

@@ -1,11 +1,11 @@
 ﻿using System;
 using Domain.Core;
 using Microsoft.AspNetCore.Mvc;
-using WebApi.Controllers.Core;
+using WebApi.UseCases.Core;
 using static Microsoft.AspNetCore.Http.StatusCodes;
 
 #pragma warning disable // Controller apenas de teste
-namespace WebApi.Controllers.V1
+namespace WebApi.UseCases.V1
 {
     [ApiVersion("1.0")]
     public class MetaController : ApiControllerBase

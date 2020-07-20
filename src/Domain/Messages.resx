@@ -21,4 +21,7 @@
   <data name="InvalidEmailFormat" xml:space="preserve">
     <value>Email inválido: {0}</value>
   </data>
+  <data name="LocalNotAvailable" xml:space="preserve">
+    <value>O local já estará ocupado no horário requisitado.</value>
+  </data>
 </root>

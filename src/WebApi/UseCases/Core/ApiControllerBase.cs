@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using static Microsoft.AspNetCore.Http.StatusCodes;
 
-namespace WebApi.Controllers.Core
+namespace WebApi.UseCases.Core
 {
     /// Base class for a versioned API controller
     [ApiController]

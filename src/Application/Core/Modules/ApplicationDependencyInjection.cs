@@ -21,6 +21,12 @@ namespace Application.Core.Modules
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingPipelineBehavior<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationPipelineBehavior<,>));
 
+            services.Scan(scan => scan.FromCallingAssembly()
+                .AddClasses(c => c.Where(type => type.Namespace!.EndsWith("Services")))
+                .AsImplementedInterfaces()
+                .WithScopedLifetime()
+            );
+
             return services;
         }
     }

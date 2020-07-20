@@ -70,6 +70,15 @@ namespace Domain {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to O local já estará ocupado no horário requisitado..
+        /// </summary>
+        internal static string LocalNotAvailable {
+            get {
+                return ResourceManager.GetString("LocalNotAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Palestrante precisa ter ao menos {0} caracteres..
         /// </summary>
         internal static string PalestranteMinimumLengthError {
