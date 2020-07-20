@@ -1,10 +1,10 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using Application.Core.Emails;
 using Domain.Funcionarios;
 using Domain.Palestras;
 using Domain.Palestras.Participacoes;
 using MediatR;
-using Microsoft.Extensions.Logging;
 
 namespace Application.Palestras.ParticiparPalestra
 {
@@ -12,15 +12,14 @@ namespace Application.Palestras.ParticiparPalestra
     {
         private readonly IPalestraRepository _palestraRepository;
         private readonly IFuncionarioRepository _funcionarioRepository;
-
-        private readonly ILogger<ParticipacaoAdicionadaNotificationHandler> _logger;
+        private readonly IEmailSender _emailSender;
 
         public ParticipacaoAdicionadaNotificationHandler(IPalestraRepository palestraRepository,
-            IFuncionarioRepository funcionarioRepository, ILogger<ParticipacaoAdicionadaNotificationHandler> logger)
+            IFuncionarioRepository funcionarioRepository, IEmailSender emailSender)
         {
             _palestraRepository = palestraRepository;
             _funcionarioRepository = funcionarioRepository;
-            _logger = logger;
+            _emailSender = emailSender;
         }
 
         public async Task Handle(ParticipacaoAdicionadaNotification notification, CancellationToken cancellationToken)
@@ -30,10 +29,10 @@ namespace Application.Palestras.ParticiparPalestra
             var funcionario = await _funcionarioRepository.GetBy(domainEvent.FuncionarioId, cancellationToken);
             var palestra = await _palestraRepository.GetBy(domainEvent.PalestraId, cancellationToken);
 
-            _logger.LogCritical($"## ENVIAR EMAIL SOBRE A INSCRIÇÃO PARA O FUNCIONARIO ## {palestra.Titulo} - {funcionario.Email}");
+            await _emailSender.SendEmailAsync(new EmailMessage(funcionario.Email, $"Palestra: {palestra.Titulo} - Data: {palestra.DataInicial:g}"));
 
             if (domainEvent.Status == StatusParticipacao.PendenteConfirmacaoSuperior)
-                _logger.LogCritical($"## ENVIAR EMAIL PARA O CHEFE CONFIRMAR ## {palestra.Titulo} - {funcionario.SuperiorEmail}");
+                await _emailSender.SendEmailAsync(new EmailMessage(funcionario.Email, $"Funcionário '{funcionario.SuperiorEmail}' deseja participar da Palestra: {palestra.Titulo} na Data: {palestra.DataInicial:g}"));
         }
     }
 }

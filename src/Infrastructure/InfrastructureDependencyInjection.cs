@@ -1,5 +1,7 @@
 ﻿using System;
+using Application.Core.Emails;
 using Infrastructure.Data;
+using Infrastructure.Emails;
 using Infrastructure.Messaging;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,6 +15,7 @@ namespace Infrastructure
         {
             services.AddPersistence(cfg);
             services.AddMessaging();
+            services.AddTransient<IEmailSender, EmailSender>();
 
             return services;
         }
