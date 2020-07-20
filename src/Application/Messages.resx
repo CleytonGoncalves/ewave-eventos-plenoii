@@ -18,4 +18,7 @@
   <data name="InvalidCommandError" xml:space="preserve">
     <value>Comando inválido. Motivos: </value>
   </data>
+  <data name="IdNotFound" xml:space="preserve">
+    <value>Nenhuma entidade encontrada com o ID requisitado.</value>
+  </data>
 </root>

@@ -61,6 +61,15 @@ namespace Application {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nenhuma entidade encontrada com o ID requisitado..
+        /// </summary>
+        internal static string IdNotFound {
+            get {
+                return ResourceManager.GetString("IdNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Comando inválido. Motivos: .
         /// </summary>
         internal static string InvalidCommandError {

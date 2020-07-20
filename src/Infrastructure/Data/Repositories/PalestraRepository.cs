@@ -18,6 +18,23 @@ namespace Infrastructure.Data.Repositories
             _context = context;
         }
 
+        public Task Add(Palestra palestra)
+        {
+            _context.Add(palestra);
+
+            return Task.CompletedTask;
+        }
+
+        public Task Update(Palestra palestra)
+        {
+            _context.Update(palestra);
+
+            return Task.CompletedTask;
+        }
+
+        public async Task<bool> Exists(PalestraId id, CancellationToken cancellationToken = default) =>
+            await _context.Palestras.AnyAsync(p => p.Id == id, cancellationToken);
+
         public async Task<Palestra?> GetBy(PalestraId id, CancellationToken cancellationToken = default) =>
             await _context.Palestras.FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
 
@@ -28,13 +45,6 @@ namespace Infrastructure.Data.Repositories
                 .ToList();
 
             return palestrasNoLocalDuranteHorario;
-        }
-
-        public Task Add(Palestra palestra)
-        {
-            _context.Add(palestra);
-
-            return Task.CompletedTask;
         }
     }
 }
