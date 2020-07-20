@@ -25,7 +25,6 @@ namespace Domain.Funcionarios
         Task<Funcionario> GetBy(FuncionarioId id, CancellationToken cancellationToken = default);
 
         /// <summary> Busca por ID </summary>
-        /// <returns>O funcionário com aquele email, se houver. Caso contrário, null.</returns>
         Task<Funcionario?> FindBy(FuncionarioId id, CancellationToken cancellationToken = default);
 
         /// <summary>

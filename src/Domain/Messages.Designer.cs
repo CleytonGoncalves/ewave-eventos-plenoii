@@ -88,11 +88,29 @@ namespace Domain {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Palestra já atingiu o limite máximo de participantes..
+        /// </summary>
+        internal static string PalestraFullError {
+            get {
+                return ResourceManager.GetString("PalestraFullError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Palestrante precisa ter ao menos {0} caracteres..
         /// </summary>
         internal static string PalestranteMinimumLengthError {
             get {
                 return ResourceManager.GetString("PalestranteMinimumLengthError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Participação já foi registrada..
+        /// </summary>
+        internal static string ParticipacaoAlreadyExists {
+            get {
+                return ResourceManager.GetString("ParticipacaoAlreadyExists", resourceCulture);
             }
         }
     }

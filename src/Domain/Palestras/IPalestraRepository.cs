@@ -28,13 +28,15 @@ namespace Domain.Palestras
         /// <returns>True, se já existir. Caso contrário, False</returns>
         Task<bool> Exists(PalestraId id, CancellationToken cancellationToken = default);
 
-        /// <summary>
-        /// Busca por ID
-        /// </summary>
-        /// <param name="id">Palestra ID</param>
-        /// <param name="cancellationToken"></param>
-        /// <returns>Palestra</returns>
-        Task<Palestra?> GetBy(PalestraId id, CancellationToken cancellationToken = default);
+        /// <summary> Busca por ID </summary>
+        /// <exception cref="InvalidOperationException">Se o ID não existir</exception>
+        /// <remarks>
+        /// Se é esperado que possa não existir, usar <see cref="FindBy(Domain.Palestras.ValueObjects.PalestraId,System.Threading.CancellationToken)"/>/>
+        /// </remarks>
+        Task<Palestra> GetBy(PalestraId id, CancellationToken cancellationToken = default);
+
+        /// <summary> Busca por ID </summary>
+        Task<Palestra?> FindBy(PalestraId id, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Busca palestras em um determinado local naquele horário específico

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Linq;
 using AutoFixture;
+using Domain.Funcionarios;
 using Domain.Palestras;
 using Domain.Palestras.Events;
+using Domain.Palestras.Participacoes;
 using Domain.Palestras.Rules;
 using Domain.SharedKernel;
 using FluentAssertions;
@@ -76,6 +78,58 @@ namespace UnitTests.Aggregates.Palestras
 
             // assert
             sut.Should().BreakBusinessRule<PalestranteMinimumLengthRule>(act);
+        }
+
+        [Fact]
+        public void AdicionarParticipacao_DeveGerar_ParticipacaoAdicionadaEvent()
+        {
+            // arrange
+            var fixture = new Fixture().Customize(new PalestraCustomization());
+            var funcionarioId = fixture.Create<FuncionarioId>();
+            var status = fixture.Create<StatusParticipacao>();
+            var sut = fixture.Create<Palestra>();
+
+            // act
+            sut.AdicionarParticipacao(funcionarioId, status);
+
+            // assert
+            sut.Should().HavePublishedEventOf<ParticipacaoAdicionadaEvent>();
+        }
+
+        [Fact]
+        public void AdicionarParticipacaoEmPalestraLotada_DeveGerar_BusinessRuleException()
+        {
+            // arrange
+            var fixture = new Fixture().Customize(new PalestraCustomization());
+            var funcionarioId = fixture.Create<FuncionarioId>();
+            var status = fixture.Create<StatusParticipacao>();
+            var sut = fixture.Create<Palestra>();
+
+            for (int i = 0; i < Palestra.MAXIMO_PARTICIPANTES; i++)
+                sut.AdicionarParticipacao(fixture.Create<FuncionarioId>(), fixture.Create<StatusParticipacao>());
+
+            // act
+            Action act = () => sut.AdicionarParticipacao(funcionarioId, status);
+
+            // assert
+            sut.Should().BreakBusinessRule<LimiteDeParticipacoesRule>(act);
+        }
+
+        [Fact]
+        public void AdicionarParticipacaoDuplicada_DeveGerar_BusinessRuleException()
+        {
+            // arrange
+            var fixture = new Fixture().Customize(new PalestraCustomization());
+            var funcionarioId = fixture.Create<FuncionarioId>();
+            var status = fixture.Create<StatusParticipacao>();
+            var sut = fixture.Create<Palestra>();
+
+            // act
+            sut.AdicionarParticipacao(funcionarioId, status);
+            Action act = () => sut.AdicionarParticipacao(funcionarioId, status);
+
+            // assert
+            sut.Should().BreakBusinessRule<ParticipacaoDuplicadaRule>(act);
         }
     }
 }

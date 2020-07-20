@@ -27,4 +27,10 @@
   <data name="FuncionarioEmailNotAvailable" xml:space="preserve">
     <value>Já existe um funcionário associado a este email.</value>
   </data>
+  <data name="PalestraFullError" xml:space="preserve">
+    <value>Palestra já atingiu o limite máximo de participantes.</value>
+  </data>
+  <data name="ParticipacaoAlreadyExists" xml:space="preserve">
+    <value>Participação já foi registrada.</value>
+  </data>
 </root>

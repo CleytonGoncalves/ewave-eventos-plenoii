@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Domain.Core;
+using Domain.Funcionarios;
 using Domain.Palestras.Events;
 using Domain.Palestras.Participacoes;
 using Domain.Palestras.Rules;
@@ -11,6 +13,8 @@ namespace Domain.Palestras
 {
     public class Palestra : EntityBase, IAggregateRoot
     {
+        public const int MAXIMO_PARTICIPANTES = 20; // Seria uma cfg do sistema, mas só pra facilitar fiz constante
+
         public PalestraId Id { get; }
 
         public string Tema { get; private set; }
@@ -25,7 +29,8 @@ namespace Domain.Palestras
         public string? PalestranteNome { get; private set; }
         public Email? PalestranteEmail { get; private set; }
 
-        public IReadOnlyCollection<Participacao> Participacoes { get; private set; }
+        private readonly List<Participacao> _participacoes;
+        public IReadOnlyCollection<Participacao> Participacoes => _participacoes.ToList();
 
         public Palestra(string tema, string titulo, DateTimeOffset dataInicial, TimeSpan duracao, Local local,
             Email organizadorEmail, IColisaoLocalPalestraChecker colisaoLocalChecker)
@@ -37,7 +42,7 @@ namespace Domain.Palestras
             DataFinal = dataInicial + duracao;
             Local = local;
             OrganizadorEmail = organizadorEmail;
-            Participacoes = new List<Participacao>();
+            _participacoes = new List<Participacao>();
 
             CheckRule(new LocalPrecisaEstarDisponivelRule(colisaoLocalChecker, Local, dataInicial, DataFinal));
 
@@ -61,9 +66,21 @@ namespace Domain.Palestras
             AddDomainEvent(new PalestraConfirmadaEvent(Id));
         }
 
+        public void AdicionarParticipacao(FuncionarioId funcionarioId, StatusParticipacao status)
+        {
+            CheckRule(new ParticipacaoDuplicadaRule(_participacoes, funcionarioId));
+
+            var participacao = new Participacao(funcionarioId, status);
+            _participacoes.Add(participacao);
+
+            CheckRule(new LimiteDeParticipacoesRule(_participacoes));
+            AddDomainEvent(new ParticipacaoAdicionadaEvent(Id, funcionarioId, status));
+        }
+
         #pragma warning disable 8618 // ReSharper disable once NotNullMemberIsNotInitialized UnusedMember.Local
         private Palestra() // Constructor pro EF
         {
+            _participacoes = new List<Participacao>();
         }
         #pragma warning restore 8618
     }

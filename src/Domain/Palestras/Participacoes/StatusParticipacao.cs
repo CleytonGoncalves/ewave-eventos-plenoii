@@ -5,8 +5,9 @@
         Desconhecido = 0,
 
         Planejado = 10,
-        Confirmado = 20,
-        Cancelado = 30,
-        RecusadoSuperior = 40,
+        PendenteConfirmacaoSuperior = 20,
+        RecusadoSuperior = 30,
+        Cancelado = 40,
+        Confirmado = 50,
     }
 }
