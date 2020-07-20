@@ -1,5 +1,6 @@
 ﻿using System;
 using Application.Core;
+using Application.Core.Data;
 using EntityFramework.Exceptions.SqlServer;
 using Infrastructure.Data.Converters;
 using Microsoft.EntityFrameworkCore;
@@ -17,16 +18,21 @@ namespace Infrastructure.Data
         internal static IServiceCollection AddPersistence(this IServiceCollection services,
             IConfiguration cfg)
         {
+            var connectionString = GetConnectionString(cfg);
+
             services.AddDbContextPool<PalestraContext>(options =>
             {
                 options
-                    .UseNpgsql(GetConnectionString(cfg))
+                    .UseNpgsql(connectionString)
                     .UseExceptionProcessor()
                     // Adiciona o conversor de IDs tipados no EF
                     .ReplaceService<IValueConverterSelector, StronglyTypedIdValueConverterSelector>()
                     .EnableDetailedErrors() // Deve ser desabilitado em produção
                     .EnableSensitiveDataLogging(); // Deve ser desabilitado em produção
             });
+
+            services.AddScoped<ISqlConnectionFactory, SqlConnectionFactory>(_ =>
+                new SqlConnectionFactory(connectionString));
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
