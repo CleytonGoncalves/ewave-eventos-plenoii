@@ -2,7 +2,7 @@
 using AutoFixture.AutoMoq;
 using UnitTests.Core;
 
-namespace UnitTests.Aggregates
+namespace UnitTests.Aggregates.Palestras
 {
     public class PalestraCustomization : CompositeCustomization
     {

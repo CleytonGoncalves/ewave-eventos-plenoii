@@ -3,7 +3,7 @@ using AutoFixture;
 using Domain.Palestras;
 using Domain.Palestras.ValueObjects;
 
-namespace UnitTests.Aggregates
+namespace UnitTests.Aggregates.Palestras
 {
     public class ColisaoLocalCustomization : ICustomization
     {

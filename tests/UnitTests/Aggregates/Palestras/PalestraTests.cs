@@ -9,7 +9,7 @@ using FluentAssertions;
 using UnitTests.Core;
 using Xunit;
 
-namespace UnitTests.Aggregates
+namespace UnitTests.Aggregates.Palestras
 {
     public class PalestraTests
     {

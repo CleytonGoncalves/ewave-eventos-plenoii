@@ -15,9 +15,10 @@ namespace Infrastructure.Data.Configurations
             builder.Property(x => x.Id)
                 .HasColumnName(nameof(Funcionario) + "Id");
 
-            builder.HasOne(x => x.Superior);
-
             builder.Property(x => x.Email)
+                .HasConversion(new EmailToStringConverter());
+
+            builder.Property(x => x.SuperiorEmail)
                 .HasConversion(new EmailToStringConverter());
         }
     }

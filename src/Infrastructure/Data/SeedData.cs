@@ -31,19 +31,17 @@ namespace Infrastructure.Data
 
             builder.Entity<Funcionario>().HasData(new
             {
-                Id = new FuncionarioId(new Guid("98EF415F-21F9-47A6-9100-8ECC75886422")),
-                Nome = "Chefe do João",
-                Email = new Email("boss@invalid.com"),
-                RequerConfirmacaoSuperior = false,
+                Id = new FuncionarioId(new Guid("35999B04-656C-417B-A235-0B5C302E78D5")),
+                Nome = "João",
+                Email = new Email("joao@example.com"),
+                SuperiorEmail = new Email("boss@example.com")
             });
 
             builder.Entity<Funcionario>().HasData(new
             {
-                Id = new FuncionarioId(new Guid("35999B04-656C-417B-A235-0B5C302E78D5")),
-                Nome = "João",
-                Email = new Email("peao@invalid.com"),
-                RequerConfirmacaoSuperior = true,
-                SuperiorId = new FuncionarioId(new Guid("98EF415F-21F9-47A6-9100-8ECC75886422")),
+                Id = new FuncionarioId(new Guid("4FC14A28-83C5-47BC-8B24-DF741CAA9F7D")),
+                Nome = "Maria",
+                Email = new Email("maria@example.com"),
             });
 
             builder.Entity<Evento>().HasData(new

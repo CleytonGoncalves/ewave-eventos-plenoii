@@ -24,4 +24,7 @@
   <data name="LocalNotAvailable" xml:space="preserve">
     <value>O local já estará ocupado no horário requisitado.</value>
   </data>
+  <data name="FuncionarioEmailNotAvailable" xml:space="preserve">
+    <value>Já existe um funcionário associado a este email.</value>
+  </data>
 </root>

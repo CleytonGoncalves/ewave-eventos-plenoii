@@ -61,6 +61,15 @@ namespace Domain {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Já existe um funcionário associado a este email..
+        /// </summary>
+        internal static string FuncionarioEmailNotAvailable {
+            get {
+                return ResourceManager.GetString("FuncionarioEmailNotAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email inválido: {0}.
         /// </summary>
         internal static string InvalidEmailFormat {
