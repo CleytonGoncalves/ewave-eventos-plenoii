@@ -18,9 +18,11 @@ namespace Infrastructure.Data
 
         public async Task<int> Commit(CancellationToken cToken = default)
         {
-            await _eventDispatcher.DispatchEvents();
+            var events = await _eventDispatcher.DispatchEvents();
 
             int affectedRows = _context.SaveChanges();
+
+            await _eventDispatcher.DispatchNotifications(events);
 
             return affectedRows;
         }

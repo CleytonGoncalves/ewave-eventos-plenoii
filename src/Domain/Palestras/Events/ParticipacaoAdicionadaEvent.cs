@@ -1,8 +1,9 @@
 ﻿using Domain.Core;
 using Domain.Funcionarios;
+using Domain.Palestras.Participacoes;
 using Domain.Palestras.ValueObjects;
 
-namespace Domain.Palestras.Participacoes
+namespace Domain.Palestras.Events
 {
     public class ParticipacaoAdicionadaEvent : DomainEventBase
     {
