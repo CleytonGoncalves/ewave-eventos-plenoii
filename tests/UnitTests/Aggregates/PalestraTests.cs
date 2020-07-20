@@ -16,23 +16,29 @@ namespace UnitTests.Aggregates
         [Fact]
         public void CriarPalestra_DeveGerar_PalestraCriadaEvent()
         {
-            var fixture = new Fixture();
+            // arrange
+            var fixture = new Fixture().Customize(new PalestraCustomization());
 
+            // act
             var sut = fixture.Create<Palestra>();
 
+            // assert
             sut.Should().HavePublishedEventOf<PalestraCriadaEvent>();
         }
 
         [Fact]
         public void DefinirPalestrante_DeveGerar_PalestranteDefinidoEvent()
         {
-            var fixture = new Fixture();
+            // arrange
+            var fixture = new Fixture().Customize(new PalestraCustomization());
             var nome = fixture.Create<string>();
             var email = fixture.Create<Email>();
             var sut = fixture.Create<Palestra>();
 
+            // act
             sut.DefinirPalestrante(nome, email);
 
+            // assert
             sut.GetAllDomainEvents().OfType<PalestranteDefinidoEvent>()
                 .Should().ContainSingle()
                 .And.SatisfyRespectively(x =>
@@ -45,25 +51,30 @@ namespace UnitTests.Aggregates
         [Fact]
         public void ConfirmarPresencaPalestrante_DeveGerar_PalestraConfirmadaEvent()
         {
-            var fixture = new Fixture();
+            // arrange
+            var fixture = new Fixture().Customize(new PalestraCustomization());
             var sut = fixture.Create<Palestra>();
 
+            // act
             sut.ConfirmarPresencaPalestrante();
 
+            // assert
             sut.Should().HavePublishedEventOf<PalestraConfirmadaEvent>();
         }
 
         [Fact]
         public void DefinirPalestranteVazio_DeveGerar_BusinessRuleException()
         {
-            var fixture = new Fixture();
+            // arrange
+            var fixture = new Fixture().Customize(new PalestraCustomization());
             var nomeMenorQuePermitido = Guid.Empty.ToString().Substring(0, PalestranteMinimumLengthRule.MIN_LENGTH - 1);
             var email = fixture.Create<Email>();
-
             var sut = fixture.Create<Palestra>();
 
+            // act
             Action act = () => sut.DefinirPalestrante(nomeMenorQuePermitido, email);
 
+            // assert
             sut.Should().BreakBusinessRule<PalestranteMinimumLengthRule>(act);
         }
     }
