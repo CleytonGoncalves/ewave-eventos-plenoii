@@ -13,8 +13,6 @@ namespace Infrastructure.Data.Configurations
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id)
                 .HasColumnName(nameof(Evento) + "Id");
-
-            builder.Ignore(x => x.Palestras);
         }
     }
 }

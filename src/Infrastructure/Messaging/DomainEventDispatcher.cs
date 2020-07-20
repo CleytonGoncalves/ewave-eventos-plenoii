@@ -5,7 +5,7 @@ using Domain.Core;
 using Infrastructure.Data;
 using MediatR;
 
-namespace Infrastructure.Processing
+namespace Infrastructure.Messaging
 {
     public class DomainEventDispatcher : IDomainEventDispatcher
     {

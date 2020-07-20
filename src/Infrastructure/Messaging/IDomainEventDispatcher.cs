@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Infrastructure.Processing
+namespace Infrastructure.Messaging
 {
     public interface IDomainEventDispatcher
     {

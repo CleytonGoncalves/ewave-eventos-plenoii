@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Domain.Core;
-using Domain.Palestras.ValueObjects;
+﻿using Domain.Core;
 
 namespace Domain.Eventos
 {
@@ -12,9 +9,6 @@ namespace Domain.Eventos
         public string Titulo { get; set; }
         public string Descricao { get; set; }
         public StatusEvento Status { get; set; }
-
-        private ICollection<PalestraId> _palestras = new List<PalestraId>();
-        public IReadOnlyCollection<PalestraId> Palestras => _palestras.ToList();
 
         public Evento(string titulo, string descricao, StatusEvento status)
         {
