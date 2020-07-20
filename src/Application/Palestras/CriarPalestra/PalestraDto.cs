@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Application.Palestras
+namespace Application.Palestras.CriarPalestra
 {
     public sealed class PalestraDto
     {
