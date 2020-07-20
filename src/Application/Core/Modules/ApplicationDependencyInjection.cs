@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using Application.Core.Pipelines;
 using Application.Core.Validations;
 using Domain.Core;
 using FluentValidation;
@@ -17,6 +18,7 @@ namespace Application.Core.Modules
             services.AddValidatorsFromAssembly(APPLICATION_ASSEMBLY);
             services.AddMediatR(DOMAIN_ASSEMBLY, APPLICATION_ASSEMBLY);
 
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingPipelineBehavior<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationPipelineBehavior<,>));
 
             return services;
