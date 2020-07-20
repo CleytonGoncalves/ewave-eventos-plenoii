@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Application.Palestras;
 using Application.Palestras.DefinirPalestrante;
 using Domain.Palestras.ValueObjects;
 using Domain.SharedKernel;
@@ -14,16 +13,16 @@ namespace WebApi.UseCases.V2.DefinirPalestrante
     [ApiVersion("2.0")]
     public class PalestraController : ApiControllerBase
     {
-        [HttpPut("{palestraId:Guid}/palestrante")]
+        [HttpPost("{palestraId:Guid}/palestrante")]
         [ProducesResponseType(Status200OK)]
         [ProducesResponseType(Status400BadRequest)]
-        public async Task<ActionResult<PalestraDto>> DefinirPalestrante([FromServices] IMediator mediator,
+        public async Task<ActionResult> DefinirPalestrante([FromServices] IMediator mediator,
             [FromRoute] Guid palestraId, DefinirPalestranteRequest request)
         {
-            var result = await mediator.Send(new DefinirPalestranteCommand(new PalestraId(palestraId),
+            await mediator.Send(new DefinirPalestranteCommand(new PalestraId(palestraId),
                 request.Nome, new Email(request.Email)));
 
-            return Ok(result);
+            return Ok();
         }
     }
 }

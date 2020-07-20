@@ -6,7 +6,7 @@ using MediatR;
 
 namespace Application.Palestras.DefinirPalestrante
 {
-    public class DefinirPalestranteCommandHandler : IRequestHandler<DefinirPalestranteCommand, PalestraDto>
+    public class DefinirPalestranteCommandHandler : IRequestHandler<DefinirPalestranteCommand>
     {
         private readonly IPalestraRepository _repository;
         private readonly IUnitOfWork _unitOfWork;
@@ -17,7 +17,7 @@ namespace Application.Palestras.DefinirPalestrante
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<PalestraDto> Handle(DefinirPalestranteCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(DefinirPalestranteCommand request, CancellationToken cancellationToken)
         {
             var palestra = await _repository.GetBy(request.PalestraId, cancellationToken);
 
@@ -26,7 +26,7 @@ namespace Application.Palestras.DefinirPalestrante
             await _repository.Update(palestra);
             await _unitOfWork.Commit(cancellationToken);
 
-            return new PalestraDto(palestra.Id.Value);
+            return Unit.Value;
         }
     }
 }

@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Application.Palestras.DefinirPalestrante
 {
-    public sealed class DefinirPalestranteCommand : IRequest<PalestraDto>
+    public sealed class DefinirPalestranteCommand : IRequest
     {
         public PalestraId PalestraId { get; set; }
 
