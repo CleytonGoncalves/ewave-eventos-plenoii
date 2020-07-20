@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
+using Application.Funcionarios;
 using Application.Funcionarios.CriarFuncionario;
-using Application.Palestras;
 using Domain.SharedKernel;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -15,7 +15,7 @@ namespace WebApi.UseCases.V2.CriarFuncionario
         [HttpPost]
         [ProducesResponseType(Status200OK)]
         [ProducesResponseType(Status400BadRequest)]
-        public async Task<ActionResult<PalestraDto>> CriarFuncionario([FromServices] IMediator mediator,
+        public async Task<ActionResult<FuncionarioDto>> CriarFuncionario([FromServices] IMediator mediator,
             CriarFuncionarioRequest request)
         {
             var result = await mediator.Send(new CriarFuncionarioCommand(request.Nome, new Email(request.Email),
