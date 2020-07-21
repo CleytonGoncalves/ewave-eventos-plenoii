@@ -1,4 +1,5 @@
 using Application.Core.Modules;
+using Hangfire;
 using Hellang.Middleware.ProblemDetails;
 using Infrastructure;
 using Microsoft.AspNetCore.Builder;
@@ -27,7 +28,6 @@ namespace WebApi
             services.AddControllers()
                 .AddConfiguredJson();
 
-            services.AddConfiguredLogging();
             services.AddConfiguredProblemDetails();
             services.AddConfiguredApiVersioning();
             services.AddConfiguredSwagger();
@@ -50,7 +50,9 @@ namespace WebApi
 
             app.UseHttpsRedirection();
 
-            app.UseSerilogRequestLogging();
+            app.UseHangfireDashboard(); //Will be available under http://localhost:5000/hangfire"
+
+            app.UseSerilogRequestLogging(LoggingOptions.Configure);
 
             app.UseProblemDetails();
 
@@ -62,7 +64,9 @@ namespace WebApi
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 
-            InfrastructureDependencyInjection.UseInfra(app.ApplicationServices);
+            InfrastructureDependencyInjection.InitializeDatabase(app.ApplicationServices);
+
+            app.UseHangfireServer();
         }
     }
 }
