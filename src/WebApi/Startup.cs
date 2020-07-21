@@ -1,5 +1,7 @@
+using System;
 using Application.Core.Modules;
 using Hangfire;
+using Hangfire.Dashboard;
 using Hellang.Middleware.ProblemDetails;
 using Infrastructure;
 using Microsoft.AspNetCore.Builder;
@@ -48,9 +50,8 @@ namespace WebApi
                 ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
             });
 
-            app.UseHttpsRedirection();
-
-            app.UseHangfireDashboard(); //Will be available under http://localhost:5000/hangfire"
+            app.UseHangfireDashboard(options: new DashboardOptions()
+                { Authorization = Array.Empty<IDashboardAuthorizationFilter>() });
 
             app.UseSerilogRequestLogging(LoggingOptions.Configure);
 
